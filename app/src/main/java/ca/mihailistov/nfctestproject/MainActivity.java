@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -63,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
             short tnf = ndefRecord.getTnf();
             String type = new String(ndefRecord.getType());
             if (tnf == NdefRecord.TNF_WELL_KNOWN && Arrays.equals(type.getBytes(), NdefRecord.RTD_TEXT)) {
-                String url = new String(ndefRecord.getPayload());
-                Log.e(TAG, "ndefRecord string : " + url.substring(3));
+                String text = new String(ndefRecord.getPayload()).substring(3);
+                Log.e(TAG, "ndefRecord string : " + text);
+                Toast.makeText(MainActivity.this, "sessionId = " + text,
+                        Toast.LENGTH_LONG).show();
             }
 //            byte[] payload = ndefRecord.getPayload();
 //            ByteBuffer buffer = ByteBuffer.wrap(payload);
